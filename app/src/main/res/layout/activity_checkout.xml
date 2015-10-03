@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CheckoutActivity"
+    >
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/linearLayout"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp">
+
+
+        <!--<fragment
+            android:id="@+id/wallet_fragment"
+            android:name="com.google.android.gms.wallet.fragment.SupportWalletFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            wallet:environment="sandbox"
+            wallet:fragmentMode="buyButton"/>-->
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+

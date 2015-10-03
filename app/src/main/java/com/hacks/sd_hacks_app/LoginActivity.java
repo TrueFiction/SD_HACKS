@@ -50,6 +50,9 @@ public class LoginActivity extends Activity {
     }
 
     public void loginUser (View v) {
+        Intent signUpIntent = new Intent(this, CheckoutActivity.class);
+        startActivity(signUpIntent);
+        return;
         //get the username that the user has entered
         EditText usernameField = (EditText) findViewById(R.id.username_enter);
         String usernameContents = usernameField.getText().toString();
