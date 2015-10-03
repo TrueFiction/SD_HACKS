@@ -2,14 +2,29 @@ package com.hacks.sd_hacks_app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.parse.FindCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.w3c.dom.Text;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.List;
 
 
 public class HomeActivity extends Activity implements View.OnClickListener {
@@ -20,6 +35,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private CompoundButton useFlash;
     private TextView statusMessage;
     private TextView barcodeValue;
+    private TextView priceValue;
+    private ImageView barcodeImg;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -31,6 +48,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         statusMessage = (TextView)findViewById(R.id.status_message);
         barcodeValue = (TextView)findViewById(R.id.barcode_value);
+        priceValue = (TextView)findViewById(R.id.price_value);
+        barcodeImg = (ImageView)findViewById(R.id.barcode_img);
 
         autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
         useFlash = (CompoundButton) findViewById(R.id.use_flash);
@@ -85,7 +104,39 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     statusMessage.setText(R.string.barcode_success);
-                    barcodeValue.setText(barcode.displayValue);
+                    //barcodeValue.setText(barcode.displayValue);
+
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
+                    query.whereEqualTo("UPC", barcode.displayValue);
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> scoreList, ParseException e) {
+                            if (e == null) {
+                                Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                                ParseObject scannedObject= scoreList.get(0);
+                                barcodeValue.setText(scannedObject.getString("Name"));
+                                DecimalFormat df = new DecimalFormat("#.00");
+                                priceValue.setText(df.format(scannedObject.getNumber("Price")));
+                                ParseFile fileObject = (ParseFile)scannedObject.get("Image");
+                                fileObject.getDataInBackground(new GetDataCallback() {
+                                    public void done(byte[] data, ParseException e) {
+                                        if (e == null) {
+                                            Log.d("test", "We've got data in data.");
+                                            Bitmap bmp = BitmapFactory
+                                                    .decodeByteArray(data, 0, data.length);
+
+                                            barcodeImg.setImageBitmap(bmp);
+
+                                        } else {
+                                            Log.d("test", "There was a problem downloading the data.");
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d("score", "Error: " + e.getMessage());
+                            }
+                        }
+                    });
+
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     statusMessage.setText(R.string.barcode_failure);
