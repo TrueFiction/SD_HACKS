@@ -1,6 +1,8 @@
 package com.hacks.sd_hacks_app;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -48,8 +50,8 @@ public class LoginActivity extends Activity {
 
     public void sendToSignUp (View v) {
         // send the user to the sign up page
-        /*Intent signUpIntent = new Intent(this, SignUpActivity.class);
-        startActivity(signUpIntent);*/
+        Intent signUpIntent = new Intent(this, SignupActivity.class);
+        startActivity(signUpIntent);
     }
 
     public void loginUser (View v) {
@@ -67,8 +69,8 @@ public class LoginActivity extends Activity {
                     public void done(ParseUser parseUser, com.parse.ParseException e) {
                         if (parseUser != null) {
                             //Send user to the main application screen, HomeActivity
-                            /*Intent homeIntent = new Intent(this, HomeActivity.class);
-                            startActivity(homeIntent);*/
+                            Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(homeIntent);
                         } else {
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.login_error),
