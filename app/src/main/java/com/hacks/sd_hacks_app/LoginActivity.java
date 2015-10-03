@@ -27,11 +27,6 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "9XzfZnNjmZO8fxlYnkeuNkz7Md6TSdTtjNUVwbdM", "9TYeFAEhQ9YHKsMxF6DjXfis6A3ootSlvCLVzNro");
-
         createUser();
     }
 
