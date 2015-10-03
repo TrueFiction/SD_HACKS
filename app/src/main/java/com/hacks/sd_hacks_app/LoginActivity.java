@@ -30,6 +30,8 @@ public class LoginActivity extends Activity {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
+        //check for successful connection
+
         Parse.initialize(this, "9XzfZnNjmZO8fxlYnkeuNkz7Md6TSdTtjNUVwbdM", "9TYeFAEhQ9YHKsMxF6DjXfis6A3ootSlvCLVzNro");
 
         createUser();
