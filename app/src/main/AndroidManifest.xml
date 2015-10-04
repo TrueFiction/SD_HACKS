@@ -44,6 +44,11 @@
             android:label="Read Barcode" />
         <activity android:name=".ShoppingCartActivity">
         </activity>
+
+        <!-- Enables the Android Pay API -->
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>
