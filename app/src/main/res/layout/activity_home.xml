@@ -15,6 +15,7 @@
         android:id="@+id/status_message"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_below="@+id/shopping_cart"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -75,12 +76,14 @@
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/read_barcode"
         android:id="@+id/read_barcode"
+        android:minHeight="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"/>
 
 
 
@@ -103,13 +106,12 @@
         android:layout_alignEnd="@+id/barcode_img" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/shopping_cart"
         android:id="@+id/shopping_cart"
-        android:layout_below="@+id/status_message"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
         android:onClick="viewCart"/>
 
 </RelativeLayout>
