@@ -219,7 +219,7 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 }
             }
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            //super.onActivityResult(requestCode, resultCode, data);
             System.out.println("not quite :(((((((((((");
         }
     }
