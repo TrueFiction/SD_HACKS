@@ -199,6 +199,8 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
         } else if (requestCode == LOAD_FULL_WALLET_REQUEST_CODE) { // Unique, identifying constant
             if (resultCode == Activity.RESULT_OK) {
                 System.out.println("Well, result is ok!!!!!!!!!!!!!!!!!!!!!!!!Q");
+                /*if (data == null)
+                    return;*/
                 FullWallet fullWallet = data.getParcelableExtra(WalletConstants.EXTRA_FULL_WALLET);
                 String tokenJSON = fullWallet.getPaymentMethodToken().getToken();
                 try {
