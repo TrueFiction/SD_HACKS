@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private TextView barcodeValue;
     private TextView priceValue;
     private ImageView barcodeImg;
+    private Button cartSendButton;
+    private Button cartNotSendButton;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -50,6 +53,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         barcodeValue = (TextView)findViewById(R.id.barcode_value);
         priceValue = (TextView)findViewById(R.id.price_value);
         barcodeImg = (ImageView)findViewById(R.id.barcode_img);
+        cartSendButton = (Button)findViewById(R.id.cartSend);
+        cartNotSendButton = (Button)findViewById(R.id.cartNotSend);
 
         autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
         useFlash = (CompoundButton) findViewById(R.id.use_flash);
@@ -104,8 +109,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     statusMessage.setText(R.string.barcode_success);
-                    //barcodeValue.setText(barcode.displayValue);
-
+                    
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
                     query.whereEqualTo("UPC", barcode.displayValue);
                     query.findInBackground(new FindCallback<ParseObject>() {
@@ -131,6 +135,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                                         }
                                     }
                                 });
+                                cartSendButton.setVisibility(View.VISIBLE);
+                                cartNotSendButton.setVisibility(View.VISIBLE);
                             } else {
                                 Log.d("score", "Error: " + e.getMessage());
                             }

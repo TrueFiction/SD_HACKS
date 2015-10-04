@@ -47,6 +47,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/cart_send"
+        android:id="@+id/cartSend"
+        android:layout_below="@+id/price_value"
+        android:layout_alignParentStart="true"
+
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_not_send"
+        android:id="@+id/cartNotSend"
+        android:layout_below="@+id/price_value"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/read_barcode"
         android:id="@+id/read_barcode"
         android:layout_alignParentBottom="true"

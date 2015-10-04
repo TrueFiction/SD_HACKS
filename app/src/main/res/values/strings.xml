@@ -13,6 +13,8 @@
     <string name="signup_empty_password">Empty Password! Please enter a password. </string>
     <string name="signup_empty_email">Empty Email! Please enter an email. </string>
     <string name="signup_submit">Submit</string>
+    <string name="cart_send">Add to Cart</string>
+    <string name="cart_not_send">Cancel</string>
 
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
