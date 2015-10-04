@@ -44,6 +44,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageView barcodeImg;
     private Button cartSendButton;
     private Button cartNotSendButton;
+    private Button readBarcodeButton;
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -60,6 +61,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         barcodeImg = (ImageView)findViewById(R.id.barcode_img);
         cartSendButton = (Button)findViewById(R.id.cartSend);
         cartNotSendButton = (Button)findViewById(R.id.cartNotSend);
+        readBarcodeButton = (Button)findViewById(R.id.read_barcode);
 
         autoFocus = (CompoundButton) findViewById(R.id.auto_focus);
         useFlash = (CompoundButton) findViewById(R.id.use_flash);
@@ -114,7 +116,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     statusMessage.setText(R.string.barcode_success);
-                    
+
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
                     query.whereEqualTo("UPC", barcode.displayValue);
                     query.findInBackground(new FindCallback<ParseObject>() {
@@ -170,6 +172,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             barcodeValue.setText(barcodeValue.getText() + " added to cart.");
             cartSendButton.setText("View Cart");
             cartNotSendButton.setText("Scan Items");
+            readBarcodeButton.setVisibility(View.INVISIBLE);
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
             query.getInBackground(barcodeHiddenValue.getText().toString(), new GetCallback<ParseObject>() {
@@ -210,8 +213,11 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         priceValue.setText("");
         barcodeImg.setImageDrawable(null);
         statusMessage.setText(getString(R.string.barcode_header));
+        cartSendButton.setText(getString(R.string.cart_send));
         cartSendButton.setVisibility(View.INVISIBLE);
+        cartNotSendButton.setText(getString(R.string.cart_not_send));
         cartNotSendButton.setVisibility(View.INVISIBLE);
+        readBarcodeButton.setVisibility(View.VISIBLE);
     }
 
     public void viewCart(View v) {

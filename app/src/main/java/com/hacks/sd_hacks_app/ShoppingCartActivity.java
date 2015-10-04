@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,5 +58,24 @@ public class ShoppingCartActivity extends Activity
                 }
             }
         });
+    }
+
+    public void clearAll(View v) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Cart");
+        query.whereEqualTo("User", ParseUser.getCurrentUser());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    for (ParseObject p : list)
+                        p.deleteInBackground();
+                } else {
+                    Log.e("error clearing cart", "error: " + e);
+                }
+            }
+        });
+        // send the user to the sign up page
+        Intent homeIntent = new Intent(ShoppingCartActivity.this, HomeActivity.class);
+        startActivity(homeIntent);
     }
 }

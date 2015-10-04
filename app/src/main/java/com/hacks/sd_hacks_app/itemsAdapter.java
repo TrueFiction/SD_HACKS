@@ -15,6 +15,8 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -43,7 +45,8 @@ public class itemsAdapter extends ArrayAdapter<ParseObject> {
 
             // Populate the data into the template view using the data object
             itemName.setText(item.getString("Name"));
-            itemPrice.setText(item.getString("Price"));
+            DecimalFormat df = new DecimalFormat("#.00");
+            itemPrice.setText(df.format(item.getNumber("Price")));
         }
 
         // Lookup view for data population
@@ -53,7 +56,8 @@ public class itemsAdapter extends ArrayAdapter<ParseObject> {
 
         // Populate the data into the template view using the data object
         itemName.setText(item.getString("Name"));
-        itemPrice.setText(item.getNumber("Price").toString());
+        DecimalFormat df = new DecimalFormat("#.00");
+        itemPrice.setText(df.format(item.getNumber("Price")));
         ParseFile fileObject = (ParseFile)item.get("Image");
         fileObject.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
