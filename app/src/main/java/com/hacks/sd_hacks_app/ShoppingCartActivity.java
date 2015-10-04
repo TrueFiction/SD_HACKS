@@ -35,6 +35,8 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManagerFactory;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
@@ -131,6 +133,15 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     Log.e("success", "Got cart list" + list.size());
+                    float amount= 0.00f;
+
+                    for (ParseObject p : list) {
+                        amount += p.getNumber("Price").floatValue();
+                    }
+
+                    TextView amountValue = (TextView) ShoppingCartActivity.this.findViewById(R.id.amount);
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    amountValue.setText("Amount: $" + df.format( amount));
 
                     // Create the adapter to convert the array to views
                     itemsAdapter adapter = new itemsAdapter(ShoppingCartActivity.this, android.R.layout.simple_list_item_1, list);
@@ -219,7 +230,7 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 }
             }
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            //super.onActivityResult(requestCode, resultCode, data);
             System.out.println("not quite :(((((((((((");
         }
     }

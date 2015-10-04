@@ -1,5 +1,6 @@
 package com.hacks.sd_hacks_app;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
