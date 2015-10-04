@@ -231,6 +231,7 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                                 "Transaction succeeded. Thank you for shopping with us!",
                                 Toast.LENGTH_LONG).show();
                         System.out.println("your shit worked!!!!!!!!!!!!!");
+                        clearAll(this.getCurrentFocus());
                     } else {
                         Toast.makeText(getApplicationContext(),
                                 "Transaction failed. Please try again.",
