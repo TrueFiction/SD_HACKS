@@ -224,7 +224,18 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 com.stripe.model.Token token = com.stripe.model.Token.GSON.fromJson(tokenJSON, com.stripe.model.Token.class);
 
                 try {
-                    sendPost(tokenJSON);
+                    boolean success = sendPost(tokenJSON);
+
+                    if (success) {
+                        Toast.makeText(getApplicationContext(),
+                                "Transaction succeeded. Thank you for shopping with us!",
+                                Toast.LENGTH_LONG).show();
+                        System.out.println("your shit worked!!!!!!!!!!!!!");
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Transaction failed. Please try again.",
+                                Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -258,10 +269,13 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
     }
 
 
-    private void sendPost(final String tokenJSON) throws Exception {
+    private boolean sendPost(final String tokenJSON) throws Exception {
         System.out.println("u have entered send post!!!!!!!!!!!!!!!!!!!");
+        boolean result = false;
+        final ArrayList<Boolean> list = new ArrayList<Boolean>();
+
         //Your server URL
-        new Thread(new Runnable() {
+        Thread t = new Thread(new Runnable() {
             public void run() {
                 try {
                     String url = "https://107.170.199.169/";
@@ -287,14 +301,26 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                     System.out.println("Post parameters : " + tokenJSON);
                     System.out.println("Response Code : " + responseCode);
 
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            con.getInputStream()));
+                    String inputLine;
+                    StringBuffer response = new StringBuffer();
+
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    in.close();
+
+                    list.add("Success!".equals(response.toString()));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-        }).start();
-
+        });
+        t.start();
+        t.join(1000000);
+        return (list.get(0) == true);
     }
 
     // source: http://littlesvr.ca/grumble/2014/07/21/android-programming-connect-to-an-https-server-with-self-signed-certificate/
