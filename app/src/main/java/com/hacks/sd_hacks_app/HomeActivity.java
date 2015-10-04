@@ -36,6 +36,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private CompoundButton useFlash;
     private TextView statusMessage;
     private TextView barcodeValue;
+    private TextView barcodeHiddenValue;
     private TextView priceValue;
     private ImageView barcodeImg;
     private Button cartSendButton;
@@ -51,6 +52,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         statusMessage = (TextView)findViewById(R.id.status_message);
         barcodeValue = (TextView)findViewById(R.id.barcode_value);
+        barcodeHiddenValue = (TextView)findViewById(R.id.barcode_hidden_value);
         priceValue = (TextView)findViewById(R.id.price_value);
         barcodeImg = (ImageView)findViewById(R.id.barcode_img);
         cartSendButton = (Button)findViewById(R.id.cartSend);
@@ -118,6 +120,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                                 Log.d("score", "Retrieved " + scoreList.size() + " scores");
                                 ParseObject scannedObject= scoreList.get(0);
                                 barcodeValue.setText(scannedObject.getString("Name"));
+                                barcodeHiddenValue.setText(scannedObject.getObjectId());
                                 DecimalFormat df = new DecimalFormat("#.00");
                                 priceValue.setText(df.format(scannedObject.getNumber("Price")));
                                 ParseFile fileObject = (ParseFile)scannedObject.get("Image");
@@ -158,6 +161,29 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    public void sendCart(View v) {
+        //button says send item to cart
+        if (cartSendButton.getText() == getString(R.string.cart_send)){
+            barcodeValue.setText(barcodeValue.getText() + " added to cart.");
+            cartSendButton.setText("View Cart");
+            cartNotSendButton.setText("Scan Items");
+        }
+        //button says view the cart
+        else {
+            // send the user to the cart page
+            Intent ShoppingCartIntent = new Intent(this, SignupActivity.class);
+            startActivity(ShoppingCartIntent);
+        }
+    }
+
+    public void notSendCart(View v) {
+        barcodeValue.setText("");
+        priceValue.setText("");
+        barcodeImg.setImageDrawable(null);
+        statusMessage.setText(getString(R.string.barcode_header));
+        cartSendButton.setVisibility(View.INVISIBLE);
+        cartNotSendButton.setVisibility(View.INVISIBLE);
+    }
 
     /** Exit the application and leave the application running as a process*/
     /*@Override
