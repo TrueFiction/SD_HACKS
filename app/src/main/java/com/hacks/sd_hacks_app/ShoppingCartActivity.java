@@ -141,7 +141,7 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
 
                     TextView amountValue = (TextView) ShoppingCartActivity.this.findViewById(R.id.amount);
                     DecimalFormat df = new DecimalFormat("#.00");
-                    amountValue.setText("Amount: $" + df.format( amount));
+                    amountValue.setText("Amount: $" + df.format(amount));
 
                     // Create the adapter to convert the array to views
                     itemsAdapter adapter = new itemsAdapter(ShoppingCartActivity.this, android.R.layout.simple_list_item_1, list);
@@ -194,13 +194,19 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 FullWalletRequest fullWalletRequest = FullWalletRequest.newBuilder()
                         .setCart(Cart.newBuilder()
                                 .setCurrencyCode("USD")
-                                .setTotalPrice("20.00")
+                                .setTotalPrice(
+                                        ((TextView) findViewById(R.id.amount)).getText().toString()
+                                                .substring(((TextView) findViewById(R.id.amount)).getText().toString().indexOf('$') + 1))
                                 .addLineItem(LineItem.newBuilder() // Identify item being purchased
                                         .setCurrencyCode("USD")
                                         .setQuantity("1")
                                         .setDescription("Self Checkout")
-                                        .setTotalPrice("2000") // TODO
-                                        .setUnitPrice("2000") // TODO
+                                        .setTotalPrice(((TextView) findViewById(R.id.amount)).getText().toString()
+                                                .substring(((TextView) findViewById(R.id.amount)).getText().toString().indexOf('$') + 1)
+                                                .replaceAll("\\.", ""))
+                                        .setUnitPrice(((TextView) findViewById(R.id.amount)).getText().toString()
+                                                .substring(((TextView) findViewById(R.id.amount)).getText().toString().indexOf('$') + 1)
+                                                .replaceAll("\\.", ""))
                                         .build())
                                 .build())
                         .setGoogleTransactionId(maskedWallet.getGoogleTransactionId())
@@ -215,7 +221,9 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 FullWallet fullWallet = data.getParcelableExtra(WalletConstants.EXTRA_FULL_WALLET);
                 String tokenJSON = fullWallet.getPaymentMethodToken().getToken();
                 try {
-                    tokenJSON = new JSONObject(tokenJSON).put("amount", "2000").toString(); // TODO
+                    tokenJSON = new JSONObject(tokenJSON).put("amount", ((TextView) findViewById(R.id.amount)).getText().toString()
+                            .substring(((TextView) findViewById(R.id.amount)).getText().toString().indexOf('$') + 1)
+                            .replaceAll("\\.", "")).toString();
                 } catch (JSONException j) {
                     j.printStackTrace();
                 }
