@@ -41,12 +41,27 @@ public class itemsAdapter extends ArrayAdapter<ParseObject> {
 
             TextView itemName = (TextView) convertView.findViewById(R.id.item_name);
             TextView itemPrice = (TextView) convertView.findViewById(R.id.item_price);
-            ImageView itemImage = (ImageView) convertView.findViewById(R.id.item_img);
+            final ImageView itemImage = (ImageView) convertView.findViewById(R.id.item_img);
 
             // Populate the data into the template view using the data object
             itemName.setText(item.getString("Name"));
             DecimalFormat df = new DecimalFormat("#.00");
             itemPrice.setText(df.format(item.getNumber("Price")));
+            ParseFile fileObject = (ParseFile)item.get("Image");
+            fileObject.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Log.d("test", "We've got data in data.");
+                        Bitmap bmp = BitmapFactory
+                                .decodeByteArray(data, 0, data.length);
+
+                        itemImage.setImageBitmap(bmp);
+
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
 
         // Lookup view for data population
