@@ -36,6 +36,11 @@
             android:label="@string/app_name" >
         </activity>
 
+        <activity
+            android:name=".PaymentActivity"
+            android:label="@string/app_name" >
+        </activity>
+
         <!-- Enables the Android Pay API -->
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"

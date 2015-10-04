@@ -50,11 +50,11 @@ public class LoginActivity extends Activity {
     }
 
     public void loginUser (View v) {
-        Intent signUpIntent = new Intent(this, CheckoutActivity.class);
+        Intent signUpIntent = new Intent(this, PaymentActivity.class);
         startActivity(signUpIntent);
         return;
         //get the username that the user has entered
-        EditText usernameField = (EditText) findViewById(R.id.username_enter);
+        /*EditText usernameField = (EditText) findViewById(R.id.username_enter);
         String usernameContents = usernameField.getText().toString();
 
         //get the password that the user has entered
@@ -76,7 +76,7 @@ public class LoginActivity extends Activity {
                             // Login failed. Look at ParseException for error.
                         }
                     }
-                });
+                });*/
     }
 
     /** Exit the application and leave the application running as a process*/

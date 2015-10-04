@@ -13,4 +13,5 @@
     <string name="signup_empty_password">Empty Password! Please enter a password. </string>
     <string name="signup_empty_email">Empty Email! Please enter an email. </string>
     <string name="signup_submit">Submit</string>
+    <string name="spending_limit_exceeded">\"Spending limit exceeded\"</string>
 </resources>
