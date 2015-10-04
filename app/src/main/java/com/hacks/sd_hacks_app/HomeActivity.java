@@ -15,11 +15,14 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.w3c.dom.Text;
 
@@ -167,6 +170,28 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             barcodeValue.setText(barcodeValue.getText() + " added to cart.");
             cartSendButton.setText("View Cart");
             cartNotSendButton.setText("Scan Items");
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Item");
+            query.getInBackground(barcodeHiddenValue.getText().toString(), new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+                        ParseObject cartItem = new ParseObject("Cart");
+                        cartItem.put("User", ParseUser.getCurrentUser());
+                        cartItem.put("Item", object);
+                        cartItem.saveInBackground(new SaveCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Log.d("success", "cart saved");
+                                } else {
+                                    Log.d("success", "cart not saved" + e.toString());
+                                }
+                            }
+                        });
+                    } else {
+                        // something went wrong
+                    }
+                }
+            });
         }
         //button says view the cart
         else {
