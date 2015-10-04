@@ -188,8 +188,8 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                                         .setCurrencyCode("USD")
                                         .setQuantity("1")
                                         .setDescription("Self Checkout")
-                                        .setTotalPrice("20.00") // TODO
-                                        .setUnitPrice("20.00") // TODO
+                                        .setTotalPrice("2000") // TODO
+                                        .setUnitPrice("2000") // TODO
                                         .build())
                                 .build())
                         .setGoogleTransactionId(maskedWallet.getGoogleTransactionId())
@@ -204,7 +204,7 @@ public class ShoppingCartActivity extends FragmentActivity implements GoogleApiC
                 FullWallet fullWallet = data.getParcelableExtra(WalletConstants.EXTRA_FULL_WALLET);
                 String tokenJSON = fullWallet.getPaymentMethodToken().getToken();
                 try {
-                    tokenJSON = new JSONObject(tokenJSON).put("amount", "20.00").toString(); // TODO
+                    tokenJSON = new JSONObject(tokenJSON).put("amount", "2000").toString(); // TODO
                 } catch (JSONException j) {
                     j.printStackTrace();
                 }
