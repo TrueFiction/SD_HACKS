@@ -4,13 +4,47 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.hacks.sd_hacks_app.ShoppingCartActivity">
 
-    <ListView
-        android:id="@android:id/list"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Shopping Cart"
+        android:minHeight="15dp"
+        />
+
+    <ListView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:minHeight="400dp">
     </ListView>
+
+    <Space
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cart_list"
+        android:minHeight="40dp"/>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear Shopping Cart"
+        android:layout_below="@+id/spacer"
+        android:maxHeight="100dp"
+        android:layout_marginBottom="0dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Purchase"
+        android:layout_below="@+id/clearButton"
+        android:maxHeight="100dp"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

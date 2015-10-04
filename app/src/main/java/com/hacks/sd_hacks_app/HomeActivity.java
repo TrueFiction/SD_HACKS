@@ -175,9 +175,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             query.getInBackground(barcodeHiddenValue.getText().toString(), new GetCallback<ParseObject>() {
                 public void done(ParseObject object, ParseException e) {
                     if (e == null) {
+                        Log.d("success", object.toString());
+                        ParseUser user = ParseUser.getCurrentUser();
                         ParseObject cartItem = new ParseObject("Cart");
                         cartItem.put("User", ParseUser.getCurrentUser());
-                        cartItem.put("Item", object);
+                        cartItem.put("Name", object.getString("Name"));
+                        cartItem.put("Image", object.getParseFile("Image"));
+                        cartItem.put("Price", object.getNumber("Price"));
                         cartItem.saveInBackground(new SaveCallback() {
                             public void done(ParseException e) {
                                 if (e == null) {
