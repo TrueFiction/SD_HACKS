@@ -171,7 +171,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         //button says view the cart
         else {
             // send the user to the cart page
-            Intent ShoppingCartIntent = new Intent(this, SignupActivity.class);
+            Intent ShoppingCartIntent = new Intent(this, ShoppingCartActivity.class);
             startActivity(ShoppingCartIntent);
         }
     }
@@ -183,6 +183,11 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         statusMessage.setText(getString(R.string.barcode_header));
         cartSendButton.setVisibility(View.INVISIBLE);
         cartNotSendButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void viewCart(View v) {
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
+        startActivity(intent);
     }
 
     /** Exit the application and leave the application running as a process*/

@@ -82,6 +82,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,4 +101,15 @@
         android:checked="false"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/barcode_img" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shopping_cart"
+        android:id="@+id/shopping_cart"
+        android:layout_below="@+id/status_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:onClick="viewCart"/>
+
 </RelativeLayout>
