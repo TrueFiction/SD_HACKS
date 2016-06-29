@@ -12,3 +12,5 @@ express
 stripe  
 
 The node module must be run with environment variable STRIPE_SECRET set to the Stripe secret API key.
+
+http://devpost.com/software/self-checkout-rgt6u3
